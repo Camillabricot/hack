@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System Access</title>
+  <style>
+    body {
+      background: black;
+      color: lime;
+      font-family: monospace;
+      padding: 20px;
+    }
+    #progress {
+      width: 100%;
+      background: #333;
+      border: 1px solid lime;
+      height: 20px;
+      margin-top: 20px;
+    }
+    #bar {
+      height: 100%;
+      width: 0;
+      background: lime;
+    }
+  </style>
+</head>
+<body>
+  <h1>ACCESSING DEVICE...</h1>
+  <div id="output"></div>
+  <div id="progress"><div id="bar"></div></div>
+
+  <script>
+    let output = document.getElementById("output");
+    let bar = document.getElementById("bar");
+    let width = 0;
+
+    function fakeLog(msg) {
+      output.innerHTML += "<br>> " + msg;
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function vibrate() {
+      if (navigator.vibrate) {
+        navigator.vibrate([300, 150, 300, 150, 500]);
+      }
+    }
+
+    let steps = [
+      "Bypassing security...",
+      "Injecting payload...",
+      "Extracting data...",
+      "Uploading to remote server...",
+      "Finalizing exploit..."
+    ];
+
+    let i = 0;
+    let interval = setInterval(() => {
+      if (i < steps.length) {
+        fakeLog(steps[i]);
+        vibrate();
+        i++;
+        width += 20;
+        bar.style.width = width + "%";
+      } else {
+        fakeLog("ACCESS GRANTED ✔️");
+        clearInterval(interval);
+        vibrate();
+      }
+    }, 2000);
+  </script>
+</body>
+</html>
